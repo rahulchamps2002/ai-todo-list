@@ -28,7 +28,7 @@ export default function Home() {
               type="text"
               value={task}
               onChange={(e) => setTask(e.target.value)}
-              className="border p-2 w-full mb-4"
+              className="border p-2 w-full mb-4 text-black"
               placeholder="Enter a task"
           />
           <button
