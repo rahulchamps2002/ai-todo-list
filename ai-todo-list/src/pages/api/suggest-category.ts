@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { description } = req.body;
-    const apiKey = process.env.OPENAI_API_KEY; // Store your API key in .env.local
+    const apiKey = process.env.OPENAI_API_KEY; // Ensure this key is correct
 
     try {
         const response = await axios.post(
@@ -22,9 +22,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const category = response.data.choices[0].text.trim();
         res.status(200).json({ category });
     } catch (error) {
-        console.error('Error fetching AI suggestion:', error);
+        // @ts-ignore
+        console.error('Error fetching AI suggestion:', error.response?.data || error.message);
         res.status(500).json({ error: 'Failed to fetch AI suggestion' });
     }
 };
 
 export default handler;
+

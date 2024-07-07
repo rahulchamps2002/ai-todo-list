@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -9,10 +10,14 @@ export default function Home() {
   const addTask = async () => {
     if (task.trim() === '') return;
 
-    const response = await axios.post('/api/suggest-category', { description: task });
-    const category = response.data.category;
-    setTasks([...tasks, { description: task, category }]);
-    setTask('');
+    try {
+      const response = await axios.post('/api/suggest-category', { description: task });
+      const category = response.data.category;
+      setTasks([...tasks, { description: task, category }]);
+      setTask('');
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
   };
 
   return (
